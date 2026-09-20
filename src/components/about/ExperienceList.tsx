@@ -57,7 +57,7 @@ function RoleTimeline({ entry, language, currentDate }: { entry: ExperienceEntry
             <span aria-hidden="true" className="absolute -left-[1.6rem] top-1.5 size-2.5 rounded-full border-2 border-surface-raised bg-muted" />
             <h4 className="font-semibold text-ink">{role.role}</h4>
             <p className="mt-1 text-sm text-muted">{role.employmentType}</p>
-            <p className="mt-1 font-mono text-sm text-muted">{role.period}</p>
+            <p className="mt-1 text-sm text-muted">{role.period}</p>
             {role.summary ? <p className="mt-3 max-w-[60ch] leading-relaxed text-muted">{role.summary}</p> : null}
           </li>
         ))}
