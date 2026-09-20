@@ -180,7 +180,7 @@ export const NINX_DATA: Project = {
     en: {
       name: "Ninx · Data and reporting",
       tagline:
-        "The data layer behind Ninx: 23 tables, eleven analytical queries and the rules that keep the numbers honest.",
+        "The data layer behind Ninx.",
       problem: [
         "Recording a sale is the easy part. The hard part comes after: answering how much came in, how much is still owed, which product carries the shop and which one only takes up shelf space — on top of data that keeps changing.",
         "In a poorly modelled system those questions have no trustworthy answer. A product's price changes and last month's report changes with it. A refund deletes the row and the day's total stops adding up. Two cashiers sell the same last unit.",
