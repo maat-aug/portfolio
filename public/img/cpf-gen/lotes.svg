@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+  <rect width="1200" height="750" fill="#e9e5de"/>
+  <rect x="1" y="1" width="1198" height="748" fill="none" stroke="#d3ccc1" stroke-width="2"/>
+  <text x="600" y="368" font-family="system-ui, sans-serif" font-size="44" fill="#6b6560" text-anchor="middle">lotes</text>
+  <text x="600" y="416" font-family="system-ui, sans-serif" font-size="24" fill="#9a938a" text-anchor="middle">screenshot pendente</text>
+</svg>

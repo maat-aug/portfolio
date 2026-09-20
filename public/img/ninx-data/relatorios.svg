@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img">
+  <rect width="1600" height="900" fill="#1b1815"/>
+  <rect x="1.5" y="1.5" width="1597" height="897" fill="none" stroke="#322c25" stroke-width="3"/>
+  <text x="800" y="430" font-family="system-ui, sans-serif" font-size="52" fill="#f2a253" text-anchor="middle">relatórios</text>
+  <text x="800" y="500" font-family="system-ui, sans-serif" font-size="34" fill="#a49d94" text-anchor="middle">screenshot pendente</text>
+</svg>
