@@ -89,7 +89,7 @@ export const PT_SITE_CONTENT: SiteContent = {
     home: {
       title: "Matheus Augusto",
       description:
-        "Desenvolvedor de sistemas. Construo software sob medida: sistemas de gestão, APIs e integrações e automações. C#, .NET, React e SQL Server.",
+        "Portfólio de Matheus Augusto, desenvolvedor de sistemas. Conheça projetos, experiência e soluções sob medida em C#, .NET, React e SQL Server.",
     },
     projects: {
       title: "Projetos — Matheus Augusto",

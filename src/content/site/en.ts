@@ -87,7 +87,7 @@ export const EN_SITE_CONTENT: SiteContent = {
     home: {
       title: "Matheus Augusto",
       description:
-        "Full-stack developer building custom software: business systems, APIs and integrations, and automation. C#, .NET, React and SQL Server.",
+        "Matheus Augusto's portfolio: projects, experience and custom software solutions built with C#, .NET, React and SQL Server.",
     },
     projects: {
       title: "Projects — Matheus Augusto",
