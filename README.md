@@ -5,14 +5,6 @@
 </p>
 
 <p align="center">
-  <a href="https://maataug.com.br">Website</a>
-  ·
-  <a href="https://github.com/maat-aug">GitHub</a>
-  ·
-  <a href="mailto:maataug.pessoal@gmail.com">Email</a>
-</p>
-
-<p align="center">
   <img src="https://img.shields.io/badge/Next.js-16.3.5-black?logo=next.js" alt="Next.js 16.3.5" />
   <img src="https://img.shields.io/badge/React-19.2.8-61DAFB?logo=react&logoColor=black" alt="React 19.2.8" />
   <img src="https://img.shields.io/badge/TypeScript-Strict-3178C6?logo=typescript&logoColor=white" alt="Strict TypeScript" />
