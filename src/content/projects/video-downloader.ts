@@ -14,6 +14,7 @@ export const VIDEO_DOWNLOADER: Project = {
     },
   },
   gallery: [],
+  repositoryUrl: "https://github.com/maat-aug/videoSaver",
   content: {
     pt: {
       name: "Caxumba Video Saver",
@@ -112,7 +113,7 @@ export const VIDEO_DOWNLOADER: Project = {
         {
           title: "Automatic detection",
           description:
-            "The extension follows the tab network responses and recognises MP4, HLS (.m3u8) and DASH (.mpd) by content type, with the URL extension as a second clue.",
+            "The extension watches the tab's network responses and recognizes MP4, HLS (.m3u8) and DASH (.mpd) by content type, with the URL extension as a second clue.",
         },
         {
           title: "Preview before downloading",
@@ -142,7 +143,7 @@ export const VIDEO_DOWNLOADER: Project = {
       ],
       audience: [
         "Anyone who needs to keep a video they already have access to — a class, a meeting recording, study material — without handing the URL to a middleman site.",
-        "It does not depend on an extension store: it can be built locally and loaded unpacked, or installed from the packaged build published on every version.",
+        "It does not depend on an extension store: it can be built locally and loaded unpacked, or installed from the packaged build published with every release.",
       ],
       technical: [
         {

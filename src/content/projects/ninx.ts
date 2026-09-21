@@ -98,6 +98,14 @@ export const NINX: Project = {
       ],
       technical: [
         {
+          heading: "Decisões que definem o sistema",
+          bullets: [
+            "Nada de financeiro é apagado ou sobrescrito: estorno insere um pagamento espelho negativo ligado ao original, e toda alteração de estoque emite uma linha de movimentação. A trilha é somente de inserção, e o saldo é sempre reconstruível.",
+            "O comércio sai sempre do token, nunca do corpo ou da rota — o isolamento entre lojas não depende de o serviço lembrar de filtrar.",
+            "A venda fiado não existe sem assinatura: o documento é gerado, assinado no celular do cliente e selado com hora, IP e dispositivo carimbados pelo servidor — evidência, não confiança.",
+          ],
+        },
+        {
           heading: "Arquitetura",
           paragraphs: [
             "O sistema é dividido em repositórios por responsabilidade: a API, o cliente desktop, a página pública de assinatura e o cliente anterior em .NET MAUI Blazor Hybrid, mantido só como referência depois da migração para Tauri.",
@@ -124,14 +132,6 @@ export const NINX: Project = {
             "Cada comércio é um inquilino, e o identificador dele sai sempre do token — nunca do corpo ou da rota. Tentar alcançar dado de outro comércio responde 404, e não 403, para não revelar que o recurso existe. Há testes de integração só para isso.",
             "A autorização tem três níveis deliberadamente separados: o administrador de plataforma, verificado relendo o banco em vez de confiar no claim; o proprietário do comércio, que dispensa checagem granular dentro da própria loja; e as permissões, uma relação explícita entre cargo e chave de permissão.",
             "Esse desenho substituiu uma hierarquia por peso numérico, que foi reescrita justamente porque comparar pesos não expressa permissão. Sobre ele há uma guarda contra escalonamento de privilégio: ninguém cria ou edita um cargo concedendo permissão que não tem.",
-          ],
-        },
-        {
-          heading: "Dinheiro e estoque",
-          paragraphs: [
-            "Nada de financeiro é apagado ou sobrescrito. Estorno não remove o pagamento: insere um pagamento espelho negativo ligado ao original, e toda alteração de estoque emite uma linha de movimentação. A trilha é somente de inserção, e o saldo é sempre reconstruível.",
-            "O item da venda guarda um retrato do produto no momento em que foi vendido — nome, código e preço. Quando o comerciante renomeia o produto ou muda o preço, os documentos já emitidos e os relatórios antigos continuam fiéis ao que de fato saiu da loja.",
-            "O estoque tem controle de concorrência otimista: a linha carrega uma versão, e a venda que perde a corrida é repetida algumas vezes antes de falhar com conflito. É a resposta concreta para dois caixas vendendo o último item ao mesmo tempo. Cada operação que toca mais de um agregado — criar venda, estornar, receber, quitar — roda dentro de uma transação explícita.",
           ],
         },
         {
@@ -180,7 +180,7 @@ export const NINX: Project = {
       name: "Ninx",
       tagline: "Business management system with digital credit tracking.",
       problem: [
-        "In most neighbourhood shops, store credit still lives in a paper notebook. Who owes what, and since when, exists only in the owner's memory and on a page that tears, gets wet or disappears.",
+        "In many neighborhood shops, store credit still lives in a paper notebook. Who owes what, and since when, exists only in the owner's memory and on a page that tears, gets wet or disappears.",
         "The outcome is always the same: debt nobody collects because nobody remembers, stock that runs out without warning, and a month that ends without knowing whether any of it turned a profit.",
         "Ninx moves that into a system. Every sale is recorded, every credit sale produces a document the customer signs on their own phone, and inventory is written down automatically on each purchase.",
       ],
@@ -208,7 +208,7 @@ export const NINX: Project = {
         {
           title: "Reporting",
           description:
-            "Eleven views over the business — ABC curve, margin, stock turnover, receivables ageing, performance per salesperson, dormant customers — with spreadsheet export.",
+            "Eleven views over the business — ABC curve, margin, stock turnover, receivables aging, performance per salesperson, dormant customers — with spreadsheet export.",
         },
         {
           title: "Team and multiple shops",
@@ -217,10 +217,18 @@ export const NINX: Project = {
         },
       ],
       audience: [
-        "Grocery stores, corner shops and small distributors — any retailer selling on credit and tracking it on paper or in a spreadsheet today.",
+        "Grocery stores, corner stores and small distributors — any retailer selling on credit and tracking it on paper or in a spreadsheet today.",
         "Works from a single location and scales to the second one.",
       ],
       technical: [
+        {
+          heading: "Decisions that define the system",
+          bullets: [
+            "Nothing financial is deleted or overwritten: a reversal inserts a negative mirror payment linked to the original, and every inventory change emits a movement row. The trail is insert-only, and any balance can be rebuilt from it.",
+            "The shop always comes from the token, never from the body or the route — isolation between stores never depends on a service remembering to filter.",
+            "A credit sale does not exist without a signature: the document is generated, signed on the customer's phone and sealed with the time, IP and device stamped by the server — evidence, not trust.",
+          ],
+        },
         {
           heading: "Architecture",
           paragraphs: [
@@ -251,14 +259,6 @@ export const NINX: Project = {
           ],
         },
         {
-          heading: "Money and inventory",
-          paragraphs: [
-            "Nothing financial is deleted or overwritten. A reversal does not remove the payment: it inserts a negative mirror payment linked to the original, and every inventory change emits a movement row. The trail is insert-only, and any balance can be rebuilt from it.",
-            "A sale item keeps a snapshot of the product as it was sold — name, code and price. When the shopkeeper renames a product or changes a price, documents already issued and older reports stay faithful to what actually left the shop.",
-            "Inventory uses optimistic concurrency: the row carries a version, and the sale that loses the race is retried a few times before failing with a conflict. That is the concrete answer to two tills selling the last unit at once. Every operation touching more than one aggregate — creating a sale, reversing it, taking payment, settling a debt — runs inside an explicit transaction.",
-          ],
-        },
-        {
           heading: "Desktop client",
           bullets: [
             "Tauri v2, which uses the system WebView instead of bundling a browser",
@@ -281,8 +281,8 @@ export const NINX: Project = {
         {
           heading: "Electronic signature",
           paragraphs: [
-            "The documents are not code: the three templates live as database rows and arrive through migrations, so a layout change is versioned with the schema and shipped without recompiling. On a sale, the server merges the data into the template, generates the PDF and stores both artefacts under a public GUID.",
-            "The signing page is plain HTML, CSS and JavaScript — no build step and no package manager. Only two libraries over CDN: pdf.js to rasterise the document and pdf-lib to write the stroke into the PDF as a vector path rather than an image, which keeps the ink sharp at any zoom. Everything on top is hand-written: Pointer Events capture, pinch zoom, per-stroke undo, and a draft saved on the device in case the customer closes the page midway.",
+            "The documents are not code: the three templates live as database rows and arrive through migrations, so a layout change is versioned with the schema and shipped without recompiling. On a sale, the server merges the data into the template, generates the PDF and stores both artifacts under a public GUID.",
+            "The signing page is plain HTML, CSS and JavaScript — no build step and no package manager. Only two libraries over CDN: pdf.js to rasterize the document and pdf-lib to write the stroke into the PDF as a vector path rather than an image, which keeps the ink sharp at any zoom. Everything on top is hand-written: Pointer Events capture, pinch zoom, per-stroke undo, and a draft saved on the device in case the customer closes the page midway.",
             "Using no framework was a deliberate choice. It is a page the end customer opens once, on a phone, from a QR code. A framework would add hundreds of kilobytes and a build step to solve nothing.",
             "There is no login: the credential is the unpredictability of the GUID, which only reaches whoever received the code. On confirmation the server stamps the time from its own clock, records the signer's IP and device, and seals that evidence inside the document. It is an electronic signature with probative metadata, not a certificate-backed digital signature — a distinction the system treats as a requirement, not a footnote.",
           ],

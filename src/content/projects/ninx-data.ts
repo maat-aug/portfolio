@@ -113,8 +113,8 @@ export const NINX_DATA: Project = {
         },
       ],
       audience: [
-        "É a camada que o comerciante não vê, mas usa toda vez que abre um relatório. Está documentada aqui porque decide se o número na tela merece confiança.",
-        "Para quem avalia o projeto tecnicamente, é onde as decisões de modelagem e de consulta ficam explícitas.",
+        "Para o comerciante que já registra tudo e agora precisa decidir com base nisso: o que repor primeiro quando o dinheiro é curto, quem deve há mais tempo, qual produto sustenta a loja e qual só ocupa prateleira.",
+        "Quem administra mais de um ponto compara as lojas pelos mesmos números, no mesmo corte de datas.",
       ],
       technical: [
         {
@@ -183,7 +183,7 @@ export const NINX_DATA: Project = {
         "The data layer behind Ninx.",
       problem: [
         "Recording a sale is the easy part. The hard part comes after: answering how much came in, how much is still owed, which product carries the shop and which one only takes up shelf space — on top of data that keeps changing.",
-        "In a poorly modelled system those questions have no trustworthy answer. A product's price changes and last month's report changes with it. A refund deletes the row and the day's total stops adding up. Two cashiers sell the same last unit.",
+        "In a poorly modeled system those questions have no trustworthy answer. A product's price changes and last month's report changes with it. A refund deletes the row and the day's total stops adding up. Two cashiers sell the same last unit.",
         "This page is about that half of Ninx: how the schema was designed so the past is never rewritten, and how eleven queries turn those rows into decisions at the counter.",
       ],
       features: [
@@ -219,14 +219,14 @@ export const NINX_DATA: Project = {
         },
       ],
       audience: [
-        "It is the layer the merchant never sees but uses every time a report opens. It is documented here because it decides whether the number on screen deserves trust.",
-        "For anyone assessing the project technically, it is where the modelling and querying decisions are made explicit.",
+        "For the shopkeeper who already records every sale and now has to decide from it: what to restock first when cash is short, who has owed the longest, which product carries the shop and which one only takes up shelf space.",
+        "Owners running more than one location compare their stores on the same numbers, over the same date range.",
       ],
       technical: [
         {
           heading: "Data modeling",
           paragraphs: [
-            "Twenty-three tables in five groups: identity and permissions, subscription plan, catalogue and inventory, customers and sales, documents and signatures. The store identifier reaches down into the operational tables instead of being inferred through joins, and everyday unique keys are unique per store rather than globally: two merchants may use the same barcode, and the same national ID may be a customer of two shops.",
+            "Twenty-three tables in five groups: identity and permissions, subscription plan, catalog and inventory, customers and sales, documents and signatures. The store identifier reaches down into the operational tables instead of being inferred through joins, and everyday unique keys are unique per store rather than globally: two merchants may use the same barcode, and the same national ID may be a customer of two shops.",
             "The link between a person and a store is a table of its own carrying the role, so the same person works in several stores with a different role in each. A role, in turn, has a null store when it is global, and permissions are an explicit relation between role and key, not a level field.",
             "Inventory is a table separate from the product, one to one. The split exists to isolate the version column used for concurrency control: a product changes name and price often, and the row two cashiers race over for the last unit should not change with it.",
           ],
@@ -238,14 +238,6 @@ export const NINX_DATA: Project = {
             "The document GUID is deliberately not unique — a global settlement receipt covers several sales at once",
             "Document templates are rows in the database, versioned by migration, not files in the code",
             "One table is reserved for a future messaging integration and has no use yet",
-          ],
-        },
-        {
-          heading: "One balance rule, two representations",
-          paragraphs: [
-            "The outstanding store-credit balance used to be computed in three places — service, repository and reports — and the customer listing forgot to discard refunded payments. Three possible answers to the same question, depending on which screen you opened.",
-            "Today the rule lives in a single class, in two forms side by side: an expression tree, which Entity Framework translates to SQL, and the function compiled from it, used when the calculation happens in memory. Because the second derives from the first, there is no scenario in which they disagree.",
-            "That is the difference between documenting a rule and making it impossible to break. Any new query that needs a balance has to go through the same predicate.",
           ],
         },
         {

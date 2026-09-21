@@ -33,6 +33,7 @@ export const CPF_GEN: Project = {
       },
     },
   ],
+  repositoryUrl: "https://github.com/maat-aug/cpf-generator",
   content: {
     pt: {
       name: "Gerador de CPFs",
@@ -164,9 +165,9 @@ export const CPF_GEN: Project = {
         {
           heading: "Template spreadsheet",
           paragraphs: [
-            "The header row is searched for in the first ten rows, and column names are compared without accents, case or punctuation, so several spellings of the same column all land in the same place.",
+            "The header row is searched for in the first ten rows, and column names are compared without accents, case or punctuation: “Nº CPF”, “numero do cpf” and “CPF” all land in the same place.",
             "No column is ever created and no filled cell is overwritten. Each existing data row takes the next result into its empty cells only, and whatever is left over becomes new rows at the end.",
-            "Two Brazilian Excel quirks are handled on both sides: CSV is decoded as Windows-1252 when it is not valid UTF-8, and exported with semicolons and a BOM; and a CPF the spreadsheet stored as a number gets its leading zero restored.",
+            "Two Brazilian Excel quirks are handled on read and on write: CSV is decoded as Windows-1252 when it is not valid UTF-8, and exported with semicolons and a BOM; and a CPF the spreadsheet stored as a number gets its leading zero restored.",
           ],
         },
         {
