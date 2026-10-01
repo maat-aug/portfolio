@@ -8,10 +8,27 @@ export type NavigationLabels = {
   readonly about: string;
 };
 
+export type EasterEggLabels = {
+  /** Usa `{n}` no lugar da contagem. */
+  readonly destroyed: string;
+  readonly controls: string;
+  readonly restore: string;
+  readonly move: string;
+  readonly up: string;
+  readonly down: string;
+  readonly left: string;
+  readonly right: string;
+  readonly jump: string;
+  readonly waterGun: string;
+  readonly razorShell: string;
+  readonly taunts: { readonly t5: string; readonly t15: string; readonly t30: string; readonly t60: string };
+};
+
 export type HeroContent = {
   readonly name: string;
   readonly headline: string;
   readonly intro: readonly string[];
+  readonly easterEgg: EasterEggLabels;
 };
 
 export type ProjectsSectionLabels = {
