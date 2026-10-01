@@ -14,7 +14,7 @@ export const VIDEO_DOWNLOADER: Project = {
     },
   },
   gallery: [],
-  repositoryUrl: "https://github.com/maat-aug/videoSaver",
+  repositoryUrl: "https://github.com/maat-aug/sinmal",
   content: {
     pt: {
       name: "Sinmal",
