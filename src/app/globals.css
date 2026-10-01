@@ -507,3 +507,35 @@ summary::-webkit-details-marker {
     scroll-behavior: auto !important;
   }
 }
+
+/* Troca de idioma: o conteúdo antigo sobe e some, o novo entra de baixo (ViewTransition no layout raiz). */
+::view-transition-old(.language-swap) {
+  animation: language-out 180ms ease-in both;
+}
+
+::view-transition-new(.language-swap) {
+  animation: language-in 320ms cubic-bezier(0.2, 0.8, 0.2, 1) 80ms both;
+}
+
+@keyframes language-out {
+  to {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes language-in {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(.language-swap),
+  ::view-transition-new(.language-swap) {
+    animation: none;
+  }
+}

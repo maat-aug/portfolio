@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { LANGUAGES, type Language, type Localized } from "@/domain/language";
-import { rememberLanguage } from "@/lib/languagePreference";
+import { LANGUAGE_TRANSITION, rememberLanguage } from "@/lib/languagePreference";
 
 type LanguageMenuProps = {
   language: Language;
@@ -91,6 +91,7 @@ export function LanguageMenu({ language, alternateHref, alternateHrefLang, label
                 <Link
                   href={alternateHref}
                   hrefLang={alternateHrefLang}
+                  transitionTypes={[LANGUAGE_TRANSITION]}
                   onClick={() => rememberLanguage(option)}
                   className={`${ITEM_CLASS} text-muted hover:bg-accent-soft hover:text-ink`}
                 >
