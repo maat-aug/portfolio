@@ -12,6 +12,25 @@ export const EN_SITE_CONTENT: SiteContent = {
     intro: [
     "I build tailored solutions for both your online presence and complex internal operations. From creating websites and management systems to integrating your daily tools and automating repetitive tasks, I handle the entire architecture: from data structure and business rules down to the final screen the user sees.",
     ],
+    easterEgg: {
+      destroyed: "Destroyed: {n}",
+      controls: "WASD or arrows to walk, Space to jump (again mid-air to ground pound), F for Water Gun, E for Razor Shell",
+      restore: "Restore the site",
+      move: "Move",
+      up: "Up",
+      down: "Down",
+      left: "Left",
+      right: "Right",
+      jump: "Jump",
+      waterGun: "Water Gun",
+      razorShell: "Razor Shell",
+      taunts: {
+        t5: "the CSS is soaked",
+        t15: "the designer is drying the keyboard",
+        t30: "this is fine 🌊",
+        t60: "total flood. proud of you.",
+      },
+    },
   },
   projects: {
     readMore: "See the case",

@@ -17,13 +17,13 @@ export const VIDEO_DOWNLOADER: Project = {
   repositoryUrl: "https://github.com/maat-aug/videoSaver",
   content: {
     pt: {
-      name: "Caxumba Video Saver",
+      name: "Sinmal",
       tagline:
         "Extensão de navegador que detecta e baixa vídeos MP4, HLS e DASH da página aberta, sem servidor externo.",
       problem: [
         "Vídeo que a página reproduz nem sempre é um arquivo que dá para salvar. Stream moderno chega em pedaços: HLS e DASH entregam dezenas ou centenas de segmentos, e o vídeo inteiro só existe montado dentro do player.",
         "A saída de sempre é um site de download cheio de anúncio, que pede a URL, processa no servidor de outra pessoa e devolve o que quiser devolver.",
-        "O Caxumba faz o trabalho dentro do navegador. A extensão observa o tráfego da aba, mostra o que encontrou e remonta os segmentos localmente com o ffmpeg compilado para WebAssembly. Nenhum byte passa por servidor externo.",
+        "O Sinmal faz o trabalho dentro do navegador. A extensão observa o tráfego da aba, mostra o que encontrou e remonta os segmentos localmente com o ffmpeg compilado para WebAssembly. Nenhum byte passa por servidor externo.",
       ],
       features: [
         {
@@ -39,7 +39,7 @@ export const VIDEO_DOWNLOADER: Project = {
         {
           title: "Escolha de qualidade",
           description:
-            "Em HLS e DASH, as variantes declaradas no manifesto viram uma lista de resoluções e taxas de bits.",
+            "Em HLS e DASH, as variantes declaradas no manifesto viram uma lista de resoluções com o tamanho estimado de cada uma, calculado pela taxa de bits e pela duração. Quando o stream tem faixa de áudio separada, aparece também a opção de baixar só o áudio em m4a.",
         },
         {
           title: "Remontagem local",
@@ -47,9 +47,9 @@ export const VIDEO_DOWNLOADER: Project = {
             "Os segmentos são baixados e remontados em um MP4 pelo ffmpeg.wasm, unindo vídeo e áudio quando o stream separa as duas faixas.",
         },
         {
-          title: "Progresso por etapa",
+          title: "Progresso e cancelamento",
           description:
-            "A popup mostra em qual fase está: baixando segmentos, com a contagem, remontando e salvando.",
+            "A popup mostra a porcentagem, a velocidade e o tempo restante do download, depois a remontagem e o salvamento. O botão de baixar vira cancelar enquanto o download roda.",
         },
         {
           title: "Recusa de stream protegido",
@@ -86,6 +86,10 @@ export const VIDEO_DOWNLOADER: Project = {
             "Init segment concatenado antes dos demais no caso de fMP4",
             "MPEG-TS analisado com janela ampliada, que é o que faz o ffmpeg achar as faixas de um .ts cortado",
             "O blob final volta ao service worker, que o entrega à API de downloads do navegador",
+            "Segmento que falha por erro de rede, 5xx, 408 ou 429 é tentado de novo até três vezes; 403 de URL assinada expirada falha na hora, porque repetir não resolve",
+            "Cancelamento por AbortController em toda a cadeia; no meio da remontagem, a instância do ffmpeg.wasm é encerrada",
+            "Arquivos temporários do ffmpeg apagados também em erro e cancelamento, já que a instância é reaproveitada entre downloads",
+            "Arquivo salvo com o título da aba em vez do nome do manifesto, como index.m3u8",
           ],
         },
         {
@@ -101,13 +105,13 @@ export const VIDEO_DOWNLOADER: Project = {
       ],
     },
     en: {
-      name: "Caxumba Video Saver",
+      name: "Sinmal",
       tagline:
         "A browser extension that detects and downloads MP4, HLS and DASH videos from the open page, with no external server.",
       problem: [
         "A video playing on a page is not always a file you can save. Modern streams arrive in pieces: HLS and DASH deliver dozens or hundreds of segments, and the whole video only exists assembled inside the player.",
         "The usual way out is an ad-heavy download site that takes the URL, processes it on somebody else's server and returns whatever it decides to return.",
-        "Caxumba does the work inside the browser. The extension watches the tab traffic, shows what it found and reassembles the segments locally with ffmpeg compiled to WebAssembly. Not one byte goes through an external server.",
+        "Sinmal does the work inside the browser. The extension watches the tab traffic, shows what it found and reassembles the segments locally with ffmpeg compiled to WebAssembly. Not one byte goes through an external server.",
       ],
       features: [
         {
@@ -123,7 +127,7 @@ export const VIDEO_DOWNLOADER: Project = {
         {
           title: "Quality selection",
           description:
-            "For HLS and DASH, the variants declared in the manifest become a list of resolutions and bitrates.",
+            "For HLS and DASH, the variants declared in the manifest become a list of resolutions with an estimated size for each, computed from bitrate and duration. When the stream has a separate audio track, there is also an option to download only the audio as m4a.",
         },
         {
           title: "Local reassembly",
@@ -131,9 +135,9 @@ export const VIDEO_DOWNLOADER: Project = {
             "Segments are downloaded and remuxed into an MP4 by ffmpeg.wasm, joining video and audio when the stream keeps the two tracks apart.",
         },
         {
-          title: "Progress by stage",
+          title: "Progress and cancel",
           description:
-            "The popup shows which stage is running: fetching segments, with the count, remuxing, and saving.",
+            "The popup shows the download percentage, speed and time left, then the remux and save stages. The download button turns into a cancel button while the download runs.",
         },
         {
           title: "Protected streams refused",
@@ -170,6 +174,10 @@ export const VIDEO_DOWNLOADER: Project = {
             "Init segment concatenated ahead of the others for fMP4",
             "MPEG-TS parsed with a widened analysis window, which is what lets ffmpeg find the tracks in a cut .ts",
             "The final blob returns to the service worker, which hands it to the browser downloads API",
+            "A segment that fails with a network error, 5xx, 408 or 429 is retried up to three times; a 403 from an expired signed URL fails right away, since retrying would not help",
+            "Cancellation runs through an AbortController across the whole chain; mid-remux, the ffmpeg.wasm instance is terminated",
+            "ffmpeg temp files are removed on failure and cancel too, since the instance is reused between downloads",
+            "Files are named after the tab title instead of the manifest file name, such as index.m3u8",
           ],
         },
         {

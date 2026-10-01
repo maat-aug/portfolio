@@ -12,6 +12,25 @@ export const PT_SITE_CONTENT: SiteContent = {
     intro: [
       "Desenvolvo soluções sob medida tanto para a presença da sua empresa na internet quanto para a operação interna que ficou complexa demais. Crio sites, sistemas de gestão, integro os serviços do seu dia a dia e automatizo tarefas repetitivas, cuidando de toda a arquitetura do projeto: desde a forma como seus dados são organizados e a regra de negócio, até a tela final que o usuário acessa.",
     ],
+    easterEgg: {
+      destroyed: "Destruídos: {n}",
+      controls: "WASD ou setas para andar, Espaço para pular (de novo no ar para o pisão), F para Jato d'Água, E para Concha Navalha",
+      restore: "Restaurar o site",
+      move: "Mover",
+      up: "Cima",
+      down: "Baixo",
+      left: "Esquerda",
+      right: "Direita",
+      jump: "Pular",
+      waterGun: "Jato d'Água",
+      razorShell: "Concha Navalha",
+      taunts: {
+        t5: "o CSS ficou encharcado",
+        t15: "o designer está secando o teclado",
+        t30: "tá tudo bem 🌊",
+        t60: "inundação total. orgulho de você.",
+      },
+    },
   },
   projects: {
     readMore: "Entenda melhor",

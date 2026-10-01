@@ -172,7 +172,7 @@ summary::-webkit-details-marker {
 
 .hero-avatar-glow,
 .hero-avatar-image {
-  transition: transform 300ms ease, filter 300ms ease, border-color 300ms ease;
+  transition: transform 300ms ease, filter 300ms ease, border-color 300ms ease, opacity 300ms ease;
 }
 
 .hero-avatar:hover .hero-avatar-glow {
@@ -184,112 +184,228 @@ summary::-webkit-details-marker {
   filter: saturate(1.08) contrast(1.04);
 }
 
-@keyframes hero-avatar-easter-egg {
-  0% {
-    transform: rotate(0) scale(1);
-  }
-
-  32% {
-    transform: rotate(-9deg) scale(1.12);
-  }
-
-  58% {
-    transform: rotate(365deg) scale(1.16);
-  }
-
-  80% {
-    transform: rotate(356deg) scale(1.06);
-  }
-
-  100% {
-    transform: rotate(360deg) scale(1);
-  }
-}
-
-@keyframes hero-avatar-spark {
-  0% {
-    opacity: 0;
-    transform: rotate(var(--angle)) translateY(0) scale(0);
-  }
-
-  20% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    transform: rotate(var(--angle)) translateY(-7.5rem) scale(1);
-  }
-}
-
-@keyframes hero-avatar-easter-glow {
-  0%,
-  32% {
-    opacity: 1;
-    transform: scale(1.8);
-  }
-
-  100% {
-    opacity: 0.15;
-    transform: scale(1.15);
-  }
-}
-
-.hero-avatar.hero-avatar-easter-egg {
-  animation: hero-avatar-easter-egg 1.1s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.hero-avatar.hero-avatar-easter-egg .hero-avatar-glow {
-  background: var(--accent);
-  animation: hero-avatar-easter-glow 3.1s ease-out both;
-}
-
-.hero-avatar.hero-avatar-easter-egg .hero-avatar-image {
-  border-color: var(--accent-hover);
-  filter: saturate(1.2) contrast(1.08);
-}
-
-.hero-avatar-sparks {
+.hero-avatar-pixel {
   position: absolute;
-  inset: 50% auto auto 50%;
-  z-index: -1;
+  background-repeat: no-repeat;
   pointer-events: none;
 }
 
-.hero-avatar-sparks i {
-  --angle: 0deg;
+/* Pixel se soltando: dá um pulinho, cai girando e some. Usa as variáveis sorteadas por pixel. */
+.hero-avatar-pixel.is-gone {
+  animation: hero-avatar-pixel-fall 750ms cubic-bezier(0.4, 0, 0.9, 0.6) forwards;
+}
+
+@keyframes hero-avatar-pixel-fall {
+  0% {
+    opacity: 1;
+    transform: none;
+  }
+
+  18% {
+    opacity: 1;
+    transform: translate(calc(var(--dx) * 0.2), -6px) rotate(calc(var(--rot) * 0.15));
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(0.5);
+  }
+}
+
+/* Easter egg do Oshawott. Sem escopo de propósito: as classes caem em elementos da página toda. */
+.osha-cracked {
+  filter: saturate(0.7) contrast(1.15) drop-shadow(2px 2px 0 rgb(0 0 0 / 0.3));
+}
+
+.osha-fallen {
+  pointer-events: none !important;
+}
+
+.osha-crack {
   position: absolute;
-  width: 0.6rem;
-  height: 0.6rem;
+  inset: 0;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.osha-crack path {
+  fill: none;
+  stroke: rgb(16 28 44 / 0.85);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 1.5px rgb(94 200 242 / 0.9));
+}
+
+.osha-character,
+.osha-shadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+}
+
+.osha-anchor {
+  transform: translate(-50%, -100%);
+}
+
+.osha-sprite {
+  width: 96px;
+  height: 80px;
+  transform-origin: 50% 100%;
+  filter: drop-shadow(0 0 1.5px rgb(0 0 0 / 0.55)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.3));
+}
+
+.osha-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.osha-svg g {
+  transform-box: view-box;
+}
+
+.osha-svg .mouth-open {
+  transform: scale(0.1);
+  transition: transform 120ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.osha-svg .mouth-closed {
+  transition: opacity 80ms;
+}
+
+.is-roaring .osha-svg .mouth-open {
+  transform: scale(1);
+}
+
+.is-roaring .osha-svg .mouth-closed {
+  opacity: 0;
+}
+
+.osha-svg .scalchop {
+  transition: transform 120ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.is-slashing .osha-svg .scalchop {
+  transform: translate(18px, -12px) rotate(-35deg) scale(1.25);
+}
+
+.osha-shadow {
+  width: 64px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(0 0 0 / 0.7), transparent);
+}
+
+.osha-shard {
+  position: absolute;
+  overflow: visible;
+  will-change: transform;
+}
+
+.osha-shard-piece {
+  position: absolute;
+  inset: 0;
+}
+
+.osha-break {
+  position: absolute;
+  overflow: visible;
+}
+
+.osha-break path {
+  fill: none;
+  stroke: #e9f9ff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 3px rgb(94 200 242 / 0.95));
+}
+
+.osha-flash {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(255 255 255 / 0.95), rgb(159 211 236 / 0.5) 45%, rgb(94 200 242 / 0));
+  mix-blend-mode: screen;
+}
+
+.osha-debris,
+.osha-splash,
+.osha-shockwave,
+.osha-pop,
+.osha-beam,
+.osha-shell-arc,
+.osha-pixel,
+.osha-sparkle {
+  position: absolute;
+}
+
+.osha-debris {
+  border-radius: 1px;
+}
+
+.osha-splash {
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(159 211 236 / 0.85), rgb(94 200 242 / 0));
+}
+
+.osha-shockwave {
+  border: 3px solid rgb(159 211 236 / 0.8);
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgb(94 200 242 / 0.5);
+}
+
+.osha-pop {
+  color: #e7c76e;
+  font-size: 32px;
+  font-weight: 800;
+  white-space: nowrap;
+  -webkit-text-stroke: 2px #2c4c72;
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0 #2c4c72;
+}
+
+.osha-beam {
+  height: 22px;
+  margin-top: -11px;
   border-radius: 999px;
-  background: var(--accent-hover);
-  box-shadow: 0 0 1.25rem var(--accent);
-  animation: hero-avatar-spark 1.15s ease-out both;
+  background: linear-gradient(90deg, #cff3ff, #5ec8f2, #cff3ff);
+  box-shadow: 0 0 22px 6px rgb(94 200 242 / 0.55);
 }
 
-.hero-avatar-sparks i:nth-child(2) {
-  --angle: 60deg;
-  animation-delay: 60ms;
+.osha-shell-arc {
+  border: 6px solid transparent;
+  border-right-color: #e7c76e;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 6px rgb(231 199 110 / 0.8));
 }
 
-.hero-avatar-sparks i:nth-child(3) {
-  --angle: 120deg;
-  animation-delay: 120ms;
+.osha-pad {
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgb(27 24 21 / 0.9);
+  color: var(--text);
+  font-size: 14px;
 }
 
-.hero-avatar-sparks i:nth-child(4) {
-  --angle: 180deg;
-  animation-delay: 40ms;
-}
-
-.hero-avatar-sparks i:nth-child(5) {
-  --angle: 240deg;
-  animation-delay: 100ms;
-}
-
-.hero-avatar-sparks i:nth-child(6) {
-  --angle: 300deg;
-  animation-delay: 160ms;
+.osha-pad-action {
+  width: 112px;
+  height: 44px;
+  border-color: rgb(94 200 242 / 0.5);
+  background: rgb(44 76 114 / 0.9);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 @keyframes technical-details-reveal {
@@ -389,5 +505,37 @@ summary::-webkit-details-marker {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Troca de idioma: o conteúdo antigo sobe e some, o novo entra de baixo (ViewTransition no layout raiz). */
+::view-transition-old(.language-swap) {
+  animation: language-out 180ms ease-in both;
+}
+
+::view-transition-new(.language-swap) {
+  animation: language-in 320ms cubic-bezier(0.2, 0.8, 0.2, 1) 80ms both;
+}
+
+@keyframes language-out {
+  to {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes language-in {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(.language-swap),
+  ::view-transition-new(.language-swap) {
+    animation: none;
   }
 }
